@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
-import configuration from './configuration.dev';
+import configuration from './configuration';
 import * as Joi from 'joi';
 
 
@@ -10,11 +10,12 @@ import * as Joi from 'joi';
     load: [configuration],
     validationSchema: Joi.object({
       NODE_ENV: Joi.string()
-        .valid('development', 'production', 'test', 'provision')
-        .default('development'),
+        .valid('development', 'production', 'test', 'staging')
+        .default('production'),
       PORT: Joi.number().default(3000),
+      DATABASE_URL: Joi.string().required()
     }),
     envFilePath: ['.env.local'],
   })]
 })
-export class ConfigModule {}
+export class ProjectConfigModule {}
