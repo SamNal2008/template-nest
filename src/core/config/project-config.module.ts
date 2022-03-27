@@ -15,12 +15,8 @@ import * as Joi from 'joi';
       PORT: Joi.number().default(3000),
       DATABASE_URL: Joi.string().required()
     }),
-<<<<<<< HEAD
     envFilePath: ['.env'],
     expandVariables: true
-=======
-    envFilePath: ['.env.local'],
->>>>>>> add database and global validation pipe
   })]
 })
 export class ProjectConfigModule {}
