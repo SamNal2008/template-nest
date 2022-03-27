@@ -15,7 +15,7 @@ import * as Joi from 'joi';
       PORT: Joi.number().default(3000),
       DATABASE_URL: Joi.string().required()
     }),
-    envFilePath: process.env.NODE_ENV === 'production' ? ['.env'] : ['.env.local'],
+    envFilePath: ['.env'],
     expandVariables: true
   })]
 })
