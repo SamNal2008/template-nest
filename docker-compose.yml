@@ -19,7 +19,7 @@ services:
 
   app-dev:
     container_name: app-dev
-    image: nest-image:latest
+    image: ${APP_NAME}:latest
     build:
       context: .
       target: development
