@@ -16,7 +16,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.use(detailLogger);
   app.useGlobalPipes(new ValidationPipe());
-
+  
   await app.listen(appConfig.port);
 }
 bootstrap();

@@ -17,22 +17,38 @@ services:
     ports:
      - ${POSTGRES_PORT}:5432
 
-  app-dev:
-    container_name: app-dev
-    image: ${APP_NAME}:latest
+  # app-dev:
+  #   container_name: app-dev
+  #   image: ${APP_NAME}:latest
+  #   build:
+  #     context: .
+  #     target: development
+  #     dockerfile: ./Dockerfile
+  #   command: npm run start:debug
+  #   ports:
+  #     - ${PORT}:${PORT}
+  #   volumes:
+  #     - .:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - "postgres"
+
+  prod:
+    container_name: nestjs_api_prod
+    image: nestjs-api-prod:1.0.0
     build:
-      context: .
-      target: development
-      dockerfile: ./Dockerfile
-    command: npm run start:debug
+        context: .
+        target: production
+        dockerfile: ./Dockerfile
+    command: npm run start:prod
     ports:
-      - ${PORT}:${PORT}
+        - ${PORT}:${PORT}
+        - 9229:9229
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
     restart: unless-stopped
-    depends_on:
-      - "postgres"
 
   # sonarqube:
   #   container_name: sonarqube
