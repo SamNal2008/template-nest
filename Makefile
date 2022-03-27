@@ -1,7 +1,6 @@
 
 .DEFAULT_GOAL := install_and_start
 
-# Regle qui ne sont pas des fichiers
 .PHONY = start deploy clean test first_install build_docker
 
 include .env
@@ -42,4 +41,3 @@ clean:
 
 deploy: build_docker
 	@echo "WIP - Deploy 🚀"
-	
