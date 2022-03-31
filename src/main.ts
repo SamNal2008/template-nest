@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 import { LoggingInterceptor } from './core/interceptors/exception.interceptor';
 import { detailLogger } from './core/middleware/detail-logging.middleware';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     logger: ['debug', 'error', 'log', 'verbose', 'warn'],
   });

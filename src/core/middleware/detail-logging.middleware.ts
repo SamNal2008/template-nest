@@ -1,7 +1,11 @@
 import { Logger } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
-export function detailLogger(req: Request, res: Response, next: NextFunction) {
+export function detailLogger(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void {
   const logger = new Logger('HTTP/HTTPS');
 
   const { ip, method, originalUrl } = req;
