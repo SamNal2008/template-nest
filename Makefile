@@ -39,5 +39,17 @@ clean:
 	@echo "Stoping containers"
 	docker-compose stop
 
+full_clean: clean
+	@echo "Are you sure you want to remove everything ? (Y/n)"
+	@read res
+	@if [ res = "y" ]; then \
+		@echo "Removing everything installed"
+		docker-compose down && \
+		docker rm -f $(docker ps -a -q) && \
+		docker volume rm $(docker volume ls -q) && \
+	fi
+
+
+
 deploy: build_docker
 	@echo "WIP - Deploy 🚀"

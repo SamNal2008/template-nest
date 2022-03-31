@@ -2,13 +2,13 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
+import { LoggingInterceptor } from './core/interceptors/exception.interceptor';
 import { detailLogger } from './core/middleware/detail-logging.middleware';
 
 async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn', 'log', 'debug', 'verbose']
+    logger: ['debug', 'error', 'log', 'verbose', 'warn']
   });
 
   const appConfig = app.get(ConfigService).get('app');
