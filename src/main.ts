@@ -6,9 +6,8 @@ import { LoggingInterceptor } from './core/interceptors/exception.interceptor';
 import { detailLogger } from './core/middleware/detail-logging.middleware';
 
 async function bootstrap() {
-
   const app = await NestFactory.create(AppModule, {
-    logger: ['debug', 'error', 'log', 'verbose', 'warn']
+    logger: ['debug', 'error', 'log', 'verbose', 'warn'],
   });
 
   const appConfig = app.get(ConfigService).get('app');
@@ -16,7 +15,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.use(detailLogger);
   app.useGlobalPipes(new ValidationPipe());
-  
+
   await app.listen(appConfig.port);
 }
 bootstrap();

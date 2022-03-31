@@ -11,12 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: lint
+        run : npm lint
       - name: Install
-        run: npm run ci
+        run: npm i
       - name: Test and coverage
         run: CI=true npm run test:cov
 
   build:
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +27,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       
   upload:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Upload a Build Artifact
