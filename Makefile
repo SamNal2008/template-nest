@@ -1,7 +1,7 @@
 
 .DEFAULT_GOAL := install_and_start
 
-.PHONY = start deploy clean test first_install build_docker
+.PHONY: start deploy clean test first_install build_docker
 
 include .env
 
@@ -28,7 +28,7 @@ install: node_modules
 node_modules: package.json
 	npm i --save
 
-start: ready
+start: install
 	@echo "Starting the app"
 	. ./scripts/launch-app-local.sh
 
