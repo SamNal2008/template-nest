@@ -4,35 +4,66 @@ volumes:
     pg-data:
       external: true
 
+networks:
+  internal-network:
+    driver: bridge
+
 services:
   postgres:
-    image: postgres:14
+    image: postgres:14-alpine
+    container_name: postgres
     restart: always
-    environment:
-      POSTGRES_PASSWORD: exemple
-      POSTGRES_USER: exemple
-      POSTGRES_DB: exemple # DEFAULT DATABASE
+    env_file:
+      - .env
     volumes:
       - pg-data:/var/lib/postgresql/data:rw
     ports:
-     - 5432:5432
+     - ${POSTGRES_PORT}:5432
+    networks:
+      - internal-network
 
   app-dev:
-    container_name: app-dev
-    image: ${APP_NAME}:latest
+    container_name: ${APP_NAME}-dev
+    image: ${APP_NAME}-dev:latest
     build:
       context: .
-      target: development
+      target: build
       dockerfile: ./Dockerfile
     command: npm run start:debug
     ports:
       - ${PORT}:${PORT}
+      - 9229:9229
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     restart: unless-stopped
     depends_on:
       - "postgres"
+    networks:
+      - internal-network
+    links:
+      - postgres
+
+  
+  app-prod:
+    container_name: ${APP_NAME}-prod
+    image: ${APP_NAME}-prod:latest
+    build:
+        context: .
+        target: production
+        dockerfile: ./Dockerfile
+    command: npm run start:prod
+    ports:
+        - ${PORT}:${PORT}
+        - 9229:9229
+    volumes:
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - internal-network
 
   sonarqube:
     container_name: sonarqube

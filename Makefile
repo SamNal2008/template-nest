@@ -1,8 +1,7 @@
 
 .DEFAULT_GOAL := install_and_start
 
-# Regle qui ne sont pas des fichiers
-.PHONY = start deploy clean test first_install build_docker
+.PHONY: start deploy clean test first_install build_docker
 
 include .env
 
@@ -29,7 +28,7 @@ install: node_modules
 node_modules: package.json
 	npm i --save
 
-start: ready
+start: install
 	@echo "Starting the app"
 	. ./scripts/launch-app-local.sh
 
@@ -40,6 +39,17 @@ clean:
 	@echo "Stoping containers"
 	docker-compose stop
 
+full_clean: clean
+	@echo "Are you sure you want to remove everything ? (Y/n)"
+	@read res
+	@if [ res = "y" ]; then \
+		@echo "Removing everything installed"
+		docker-compose down && \
+		docker rm -f $(docker ps -a -q) && \
+		docker volume rm $(docker volume ls -q) && \
+	fi
+
+
+
 deploy: build_docker
 	@echo "WIP - Deploy 🚀"
-	
