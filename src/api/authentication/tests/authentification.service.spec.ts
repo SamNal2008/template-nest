@@ -1,7 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthenticationService } from '../authentication.service';
-import { CompaniesService } from '../../companies/companies.service';
-import { CustomersService } from '../../customers/customers.service';
 import { UsersService } from '../../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from '../../../core/mail/mail.service';
@@ -47,8 +45,6 @@ describe('AuthenticationService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthenticationService,
-        { provide: CompaniesService, useValue: companiesServiceMock },
-        { provide: CustomersService, useValue: customerServiceMock },
         { provide: UsersService, useValue: usersServiceMock },
         { provide: JwtService, useValue: jwtServiceMock },
         { provide: MailService, useValue: mailServiceMock },
@@ -206,6 +202,7 @@ describe('AuthenticationService', () => {
       };
       const user = { email: userEmail, id: userId };
       usersServiceMock.findByEmail.mockResolvedValue(user);
+      usersServiceMock.updatePasswordForUser.mockResolvedValue(user);
       tokenServiceMock.verifyPasswordTokenIsValid.mockResolvedValue(true);
       await service.resetPasswordWithToken(resetPasswordDto);
       expect(usersServiceMock.updatePasswordForUser).toHaveBeenCalledWith(

@@ -8,6 +8,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { when } from 'jest-when';
 import { MimeTypeEnum } from '../utils/enums/mime-types.enum';
 import spyOn = jest.spyOn;
+import { HttpStatus } from '@nestjs/common';
 
 describe('FileManagementService', () => {
   let service: FileManagementService;
@@ -163,7 +164,7 @@ describe('FileManagementService', () => {
       });
       service.s3.deleteObject = mockS3.delete;
       mockS3.delete.mockReturnValue({
-        promise: () => Promise.resolve(true),
+        promise: () => Promise.resolve({$response: {httpResponse: {statusCode: HttpStatus.NO_CONTENT}}}),
       });
       const callDeleteObject = await service.deleteObject(fileId);
       expect(repositoryMockFactory.remove).toHaveBeenCalled();
