@@ -1,0 +1,22 @@
+@url={{$dotenv BASE_URL}}
+@profileEndpoint=users/profile
+@id=ddcd9fe8-4bcd-4233-bace-09fe599deac5
+
+###
+
+# @name login
+POST {{baseUrl}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "sam@mail.com",
+  "password": "Paaa5!aaaas"
+}
+
+###
+
+@access_token = {{login.response.body.access_token}}
+
+###
+GET http://localhost:8000/api/users/profile/my
+Authorization: Bearer {{access_token}}

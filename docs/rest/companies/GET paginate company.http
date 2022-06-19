@@ -1,0 +1,21 @@
+@companyEndpoint=companies
+
+###
+
+# @name login
+POST {{baseUrl}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+> {%
+client.global.set("access_token", response.body["access_token"]);
+%}
+
+
+###
+GET {{baseUrl}}/companies
+Authorization: Bearer {{access_token}}

@@ -1,6 +1,6 @@
 version: '3.8'
 
-volumes: 
+volumes:
     pg-data:
       external: true
 
@@ -11,7 +11,7 @@ networks:
 services:
   postgres:
     image: postgres:14-alpine
-    container_name: postgres
+    container_name: postgres-template
     restart: always
     env_file:
       - .env
@@ -38,13 +38,14 @@ services:
       - /usr/src/app/node_modules
     restart: unless-stopped
     depends_on:
-      - "postgres"
+      - postgres
+      - redis
     networks:
       - internal-network
     links:
       - postgres
 
-  
+
   app-prod:
     container_name: ${APP_NAME}-prod
     image: ${APP_NAME}-prod:latest
@@ -62,6 +63,7 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+      - redis
     networks:
       - internal-network
 
@@ -71,4 +73,24 @@ services:
     ports:
       - "9000:9000"
       - "9092:9092"
+    networks:
+      - internal-network
 
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - internal-network
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+        - redis
+    networks:
+      - internal-network

@@ -1,0 +1,23 @@
+###
+
+# @name login
+POST {{baseUrl}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "sam@perso.com",
+  "password": "Paaa5!aaaas"
+}
+
+###
+
+@access_token = {{login.response.body.access_token}}
+
+###
+PATCH  {{baseUrl}}/users/account/my
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "email": "samynalbandian@gmail.com"
+}

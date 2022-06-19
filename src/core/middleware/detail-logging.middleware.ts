@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export function detailLogger(
   req: Request,
@@ -16,7 +16,9 @@ export function detailLogger(
 
   res.on('finish', () => {
     const { statusCode } = res;
+
     const afterRequest = Date.now();
+
     logger.log(
       `${method} on ${originalUrl} with code : ${statusCode} - ${userAgent} from ${ip} in ${
         afterRequest - beforeRequest

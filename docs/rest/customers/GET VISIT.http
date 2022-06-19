@@ -1,0 +1,3 @@
+GET {{baseUrl}}/customers/visit/{{companyId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json

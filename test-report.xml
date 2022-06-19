@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/authentication/tests/authentification.service.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/authentication/tests/authentification.controller.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/address/tests/address.controller.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/core/validators/validators.spec.ts">
+    <testCase name="Password validator test should refuse password shorter than 8 character" duration="2"/>
+    <testCase name="Password validator test should refuse password without upper case letter" duration="0"/>
+    <testCase name="Password validator test should refuse password without digits" duration="0"/>
+    <testCase name="Password validator test should refuse password without special character" duration="0"/>
+    <testCase name="Password validator test should be a good password" duration="1"/>
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/users/companies/tests/companies.service.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/users/tests/users.service.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/users/tests/users.controller.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/core/security/token/token.service.spec.ts">
+    <testCase name="TokenService should be defined" duration="63"/>
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/users/companies/tests/companies.controller.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/app.controller.spec.ts">
+    <testCase name="AppController root should return &quot;Hello World!&quot;" duration="9"/>
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/core/mail/mail.service.spec.ts">
+    <testCase name="MailService should be defined" duration="11"/>
+    <testCase name="MailService should call sendMail function" duration="3"/>
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/users/profile/profile.controller.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/api/address/tests/address.service.spec.ts">
+  </file>
+  <file path="/home/sam/projets/pro/colocode/fidelity-backend/src/core/file/tests/file-management.service.spec.ts">
+    <testCase name="FileManagementService should be defined" duration="123"/>
+    <testCase name="FileManagementService Upload object should not upload object if no path is provided" duration="5"/>
+    <testCase name="FileManagementService Upload object should not upload object if path is empty" duration="3"/>
+    <testCase name="FileManagementService Upload object should not upload object if file is null" duration="3"/>
+    <testCase name="FileManagementService Upload object should create a file and upload it" duration="4"/>
+    <testCase name="FileManagementService Get signed url should get a signed url for an object" duration="4"/>
+    <testCase name="FileManagementService Get signed url should fail to get signed url if object does not exist" duration="3"/>
+    <testCase name="FileManagementService Delete object should delete a file correctly" duration="3"/>
+    <testCase name="FileManagementService Delete object should fail to delete the file already deleted" duration="3"/>
+  </file>
+</testExecutions>

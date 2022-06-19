@@ -1,0 +1,2 @@
+GET {{baseUrl}}/transactions/all
+Authorization: Bearer {{access_token}}

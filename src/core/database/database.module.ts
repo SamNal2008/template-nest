@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ENodeEnv } from '../utils/interfaces/configuration.interface';
+import { DatabaseService } from './database.service';
 
 @Module({
   imports: [
@@ -11,10 +13,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         type: 'postgres',
         url: configService.get('database.url'),
         autoLoadEntities: true,
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('app.node_env') === 'development',
+        synchronize: configService.get('app.node_env') === ENodeEnv.DEVELOPMENT,
       }),
     }),
   ],
+  providers: [DatabaseService],
+  exports: [DatabaseService],
 })
 export class DatabaseModule {}
