@@ -1,0 +1,17 @@
+POST {{baseUrl}}/auth/send-email-to-reset-password
+Content-Type: application/json
+
+{
+  "email": "samynalbandian@gmail.com"
+}
+
+###
+
+POST {{baseUrl}}/auth/reset-password-with-token
+Content-Type: application/json
+
+{
+  "email": "samynalbandian@gmail.com",
+  "token": "6824",
+  "newPassword": "Password123!"
+}

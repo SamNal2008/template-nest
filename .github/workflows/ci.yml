@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ dev ]
+    branches: [dev]
   pull_request:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
   test:
@@ -12,28 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install
-        run: npm i
+        run: npm ci
       - name: lint
-        run : npm run lint
+        run: npm run lint
       - name: Test and coverage
         run: CI=true npm run test:cov
 
-  build:
+  build-and-push:
     needs: [test]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      
-  upload:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.0.0
-        with:
-          name: template-nest
-          path: /tmp
-          retention-days: 1
-    
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag fidelity-backed:${GITHUB_SHA} && docker push ivirtuo/fidelity-backend:${GITHUB_SHA}

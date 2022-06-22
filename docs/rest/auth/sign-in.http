@@ -1,0 +1,12 @@
+# @name login
+POST http://localhost:8000/api/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "samynalbandian@gmail.com",
+  "password": "Password123!"
+}
+
+> {%
+client.global.set("access_token", response.body["access_token"]);
+%}

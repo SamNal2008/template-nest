@@ -1,0 +1,45 @@
+POST {{baseUrl}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+> {%
+client.global.set("access_token", response.body["access_token"]);
+%}
+
+###
+POST {{baseUrl}}/companies
+Authorization: Bearer {{access_token}}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="png-test.png"
+Content-Type: application/octet-stream
+
+< ./png-test.png
+
+--MyBoundary
+Content-Disposition: form-data; name="createCompanyDto"
+Content-Type: application/json
+
+{
+  "name": "La boite de nuit",
+  "address": {
+    "city": "Paris",
+    "country": "France",
+    "fullAddress": "111 rue JB Charcot",
+    "postalCode": "13720"
+  },
+  "phoneNumber": "+330669660132",
+  "logoName": "Ma photo",
+  "logoColor": "rgb(5,5,4)"
+}
+--MyBoundary--
+
+> {%
+client.global.set("companyId", response.body["id"]);
+%}

@@ -1,0 +1,13 @@
+### @name = signUp
+POST {{baseUrl}}/auth/sign-up
+Content-Type: application/json
+
+{
+  "userName": "Samy le iencli",
+  "email": "samynalbandian@gmail.com",
+  "password": "Password123!"
+}
+
+> {%
+client.global.set("access_token", response.body["access_token"]);
+%}

@@ -1,0 +1,40 @@
+PATCH {{baseUrl}}/companies/update/infos/{{companyId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Boulangerie",
+  "phoneNumber": "+33669660133",
+  "description": "Nouvelle description",
+  "website": "www.nouveComm.com"
+}
+
+###
+
+PATCH {{baseUrl}}/companies/update/picture/{{companyId}}
+Authorization: Bearer {{access_token}}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="image.jpg"
+Content-Type: application/octet-stream
+
+< ./image.jpg
+
+--MyBoundary--
+
+###
+
+PATCH {{baseUrl}}/companies/update/address/{{companyId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "address": {
+    "city": "Paris",
+    "country": "France",
+    "fullAddress": "28 rue pasteur",
+    "postalCode": "94270"
+  }
+}
