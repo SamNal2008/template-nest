@@ -38,8 +38,9 @@ import * as Joi from 'joi';
         CACHE_PORT: Joi.number().required(),
         CACHE_TTL: Joi.number().default(1000),
       }),
-      envFilePath: ['.env'],
+      envFilePath: '.env',
       expandVariables: true,
+      ignoreEnvVars: true,
     }),
   ],
 })

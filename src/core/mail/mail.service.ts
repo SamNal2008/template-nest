@@ -9,7 +9,7 @@ export class MailService {
   async sendEmailWithTokenToUser(user: User, token: string): Promise<void> {
     await this.mailerService.sendMail({
       to: user.email,
-      // from: '"Support Team" <support@example.com>',
+      from: 'othob@sipios.com',
       subject: 'Fidelity 🎁 ! Votre code de confirmation !',
       template: 'confirmation',
       context: {

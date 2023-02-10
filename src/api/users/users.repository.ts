@@ -1,18 +1,14 @@
-import { Logger } from '@nestjs/common';
-import { EntityRepository, Repository } from 'typeorm';
+import { Injectable, Logger } from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 
-@EntityRepository(User)
+@Injectable()
 export class UserRepository extends Repository<User> {
-  private logger = new Logger(UserRepository.name);
-
-  constructor() {
-    super();
-  }
+  private readonly logger = new Logger(UserRepository.name);
 
   async findOneByEmail(email: string): Promise<User> {
     this.logger.debug(`Finding user with email : ${email}`);
-    return this.findOne({ email });
+    return this.findOne({ where: { email } });
   }
 
   async isEmailAlreadyUsed(email: string): Promise<boolean> {

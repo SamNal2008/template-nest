@@ -13,7 +13,7 @@ import { AccountModule } from './account/account.module';
     AccountModule,
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, UserRepository],
   exports: [TypeOrmModule, UsersService],
 })
 export class UsersModule {}

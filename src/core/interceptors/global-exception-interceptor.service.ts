@@ -10,7 +10,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { InvalidCredentialsException } from '../../api/authentication/utils/exceptions/invalid-credentials.exception';
 import { EmailAlreadyUsedException } from '../../api/users/utils/exceptions/email-already-used.exception';
 

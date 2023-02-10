@@ -11,7 +11,7 @@ include .env
 
 stack-up:
 	@echo "Lets launch everything"
-	docker-compose up -d redis redis-commander postgres sonarqube
+	docker-compose up -d redis redis-commander postgres
 
 redis-start:
 	@echo "Warming up docker compose"
@@ -56,7 +56,7 @@ node_modules: package.json
 ######################################
 
 
-start: node_modules stack-up
+start: node_modules
 	docker-compose up -d app-dev
 
 build_docker: Dockerfile

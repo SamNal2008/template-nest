@@ -85,7 +85,7 @@ export class UsersService {
    */
   async findById(id: string): Promise<User> {
     this.logger.log('Finding user with id : ' + id);
-    const user = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) throw UserNotFoundException.withId(id);
     return user;
   }
@@ -100,7 +100,9 @@ export class UsersService {
     userId: string,
     newPassword: string,
   ): Promise<User> {
-    const user = await this.usersRepository.findOneOrFail(userId);
+    const user = await this.usersRepository.findOneOrFail({
+      where: { id: userId },
+    });
     if (!user) throw UserNotFoundException.withId(userId);
     user.password = bcrypt.hashSync(
       newPassword,
@@ -121,7 +123,7 @@ export class UsersService {
   ): Promise<User> {
     await this.beforeSaveUser(updateProfileDto);
     await this.usersRepository.update(userId, updateProfileDto);
-    return this.usersRepository.findOne(userId);
+    return this.usersRepository.findOne({ where: { id: userId } });
   }
 
   /**

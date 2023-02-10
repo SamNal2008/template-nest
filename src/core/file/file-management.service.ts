@@ -31,7 +31,7 @@ export class FileManagementService {
   }
 
   /** public async beforeApplicationShutdown(signal?: string): Promise<boolean> {
-    if (this.configService.get('app.node_env') !== ENodeEnv.DEVELOPMENT)
+    if (this.configService.get("app.node_env") !== ENodeEnv.DEVELOPMENT)
       return false;
     if (signal !== 'SIGINT') return false;
     this.logger.log(
@@ -87,10 +87,8 @@ export class FileManagementService {
       let targetMimeType: MimeTypeEnum;
       if (!file.mimetype || file.mimetype === 'application/octet-stream') {
         const fileExtension = path.extname(file.originalname);
-        targetMimeType = mime.lookup(
-          fileExtension,
-          'application/octet-stream',
-        ) as MimeTypeEnum;
+        targetMimeType = (mime.getType(fileExtension) ??
+          'application/octet-stream') as MimeTypeEnum;
       } else {
         targetMimeType = file.mimetype as MimeTypeEnum;
       }
@@ -115,7 +113,9 @@ export class FileManagementService {
    * @returns {Promise<IGetSignedUrl>} signedUrl
    */
   async getSignedUrl(fileId: string): Promise<IGetSignedUrl> {
-    const wantedFile = await this.fileRepository.findOne(fileId);
+    const wantedFile = await this.fileRepository.findOne({
+      where: { id: fileId },
+    });
     this.logger.debug(`Looking for file with ID : ${fileId}`);
 
     if (!wantedFile) {
@@ -152,7 +152,7 @@ export class FileManagementService {
    * @returns {Promise<boolean>} Delete result of AWS-S3 (true if file deleted error otherwise)
    */
   async deleteObject(fileId: string): Promise<boolean> {
-    const file = await this.fileRepository.findOne(fileId);
+    const file = await this.fileRepository.findOne({ where: { id: fileId } });
     if (!file) {
       this.logger.warn(`File with id : ${fileId} not found`);
       return false;

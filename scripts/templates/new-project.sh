@@ -14,7 +14,7 @@ files_to_update="package*.json"
 
 for file in $files_to_update
 do
-  if sed -i "s/template-nest/$project_name/" $file
+  if sed -i '' "s/template-nest/$project_name/" $file
     then echo "Changes in $file are made"
     else echo "Changes in $file could not been made"
   fi
